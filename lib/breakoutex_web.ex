@@ -24,6 +24,9 @@ defmodule BreakoutexWeb do
       import Plug.Conn
       import BreakoutexWeb.Gettext
       alias BreakoutexWeb.Router.Helpers, as: Routes
+
+      # Phoenix LiveView
+      import Phoenix.LiveView.Controller
     end
   end
 
@@ -42,6 +45,9 @@ defmodule BreakoutexWeb do
       import BreakoutexWeb.ErrorHelpers
       import BreakoutexWeb.Gettext
       alias BreakoutexWeb.Router.Helpers, as: Routes
+
+      # Phoenix LiveView
+      import Phoenix.LiveView, only: [live_render: 2, live_render: 3]
     end
   end
 
@@ -50,6 +56,9 @@ defmodule BreakoutexWeb do
       use Phoenix.Router
       import Plug.Conn
       import Phoenix.Controller
+
+      # Phoenix LiveView
+      import Phoenix.LiveView.Router
     end
   end
 

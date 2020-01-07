@@ -1,6 +1,9 @@
 defmodule BreakoutexWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :breakoutex
 
+  # Phoenix LiveView
+  socket "/live", Phoenix.LiveView.Socket, websocket: [timeout: 45_000]
+
   socket "/socket", BreakoutexWeb.UserSocket,
     websocket: true,
     longpoll: false

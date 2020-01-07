@@ -12,7 +12,9 @@ config :breakoutex, BreakoutexWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "TVo7x7VzPLkH1IpxA2jhyrmJ/fvGCZadNkRwQhIwKiXNW5Xi8ZimoGRbMYY6i0QZ",
   render_errors: [view: BreakoutexWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Breakoutex.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Breakoutex.PubSub, adapter: Phoenix.PubSub.PG2],
+  # Phoenix LiveView
+  live_view: [signing_salt: "SIGNING_SALT"]
 
 # Configures Elixir's Logger
 config :logger, :console,
