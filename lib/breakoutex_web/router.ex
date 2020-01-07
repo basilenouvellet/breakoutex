@@ -20,7 +20,8 @@ defmodule BreakoutexWeb.Router do
   scope "/", BreakoutexWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    # get "/", PageController, :index
+    get "/", GameController, :index
   end
 
   # Other scopes may use custom stacks.
