@@ -4,6 +4,8 @@ defmodule BreakoutexWeb.Live.Blocks do
   as well as functions to init the board
   """
 
+  alias BreakoutexWeb.Live.Helpers
+
   # Expressed in multiple of basic units
   @brick_length 3
 
@@ -40,8 +42,8 @@ defmodule BreakoutexWeb.Live.Blocks do
   defp wall(x_idx, y_idx, width, height) do
     %{
       type: :wall,
-      left: coordinate(x_idx, width),
-      top: coordinate(y_idx, height),
+      left: Helpers.coordinate(x_idx, width),
+      top: Helpers.coordinate(y_idx, height),
       width: width,
       height: height
     }
@@ -51,8 +53,8 @@ defmodule BreakoutexWeb.Live.Blocks do
   defp floor(x_idx, y_idx, width, height) do
     %{
       type: :floor,
-      left: coordinate(x_idx, width),
-      top: coordinate(y_idx, height),
+      left: Helpers.coordinate(x_idx, width),
+      top: Helpers.coordinate(y_idx, height),
       width: width,
       height: height
     }
@@ -62,8 +64,8 @@ defmodule BreakoutexWeb.Live.Blocks do
   defp empty(x_idx, y_idx, width, height) do
     %{
       type: :empty,
-      left: coordinate(x_idx, width),
-      top: coordinate(y_idx, height),
+      left: Helpers.coordinate(x_idx, width),
+      top: Helpers.coordinate(y_idx, height),
       width: width,
       height: height
     }
@@ -78,17 +80,12 @@ defmodule BreakoutexWeb.Live.Blocks do
       height: height,
       id: UUID.uuid4(),
       visible: true,
-      left: coordinate(x_idx, width),
-      top: coordinate(y_idx, height),
-      right: coordinate(x_idx, width) + width * brick_length, # pre-computed for performance sake
-      bottom: coordinate(y_idx, height) + height # pre-computed for performance sake
+      left: Helpers.coordinate(x_idx, width),
+      top: Helpers.coordinate(y_idx, height),
+      right: Helpers.coordinate(x_idx, width) + width * brick_length, # pre-computed for performance sake
+      bottom: Helpers.coordinate(y_idx, height) + height # pre-computed for performance sake
     }
   end
-
-  # Multiply an integer coordinate for a length, giving
-  # the actual coordinate on a continuous plane
-  @spec coordinate(number(), number()) :: number()
-  def coordinate(x, l), do: x * l
 
   @spec get_color(String.t()) :: String.t()
   defp get_color("r"), do: "red"
