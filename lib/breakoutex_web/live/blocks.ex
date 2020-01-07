@@ -4,86 +4,53 @@ defmodule BreakoutexWeb.Live.Blocks do
   as well as functions to init the board
   """
 
-  alias BreakoutexWeb.Live.Helpers
+  alias BreakoutexWeb.Live.{Helpers, GameSettings}
 
-  # Expressed in multiple of basic units
-  @brick_length 3
+  @spec build_board(list(list(String.t()))) :: [map()]
+  def build_board(grid) do
+    grid
+    |> Enum.with_index()
+    |> Enum.flat_map(fn {row, y_idx} ->
+      row
+      |> Enum.with_index()
+      |> Enum.map(fn
+        {"X", x_idx} ->
+          block(:wall, x_idx, y_idx)
 
-  @spec build_board(list(list(String.t())), number(), number()) :: [map()]
-  def build_board(grid, width, height) do
-    {_, blocks} =
-      Enum.reduce(grid, {0, []}, fn row, {y_idx, acc} ->
-        {_, blocks} =
-          Enum.reduce(row, {0, acc}, fn
-            # "X" is a Wall
-            "X", {x_idx, acc} ->
-              {x_idx + 1, [wall(x_idx, y_idx, width, height) | acc]}
+        {"0", x_idx} ->
+          block(:empty, x_idx, y_idx)
 
-            # "0" is an Empty block
-            "0", {x_idx, acc} ->
-              {x_idx + 1, [empty(x_idx, y_idx, width, height) | acc]}
+        {"D", x_idx} ->
+          block(:floor, x_idx, y_idx)
 
-            # "D" is a Floor
-            "D", {x_idx, acc} ->
-              {x_idx + 1, [floor(x_idx, y_idx, width, height) | acc]}
-
-            # any other is a Brick of color
-            b, {x_idx, acc} ->
-              {x_idx + 1, [brick(b, @brick_length, x_idx, y_idx, width, height) | acc]}
-          end)
-
-        {y_idx + 1, blocks}
+        {c, x_idx} ->
+          brick(c, GameSettings.brick().length, GameSettings.brick().height, x_idx, y_idx)
       end)
-
-    blocks
+    end)
   end
 
-  @spec wall(number(), number(), number(), number()) :: map()
-  defp wall(x_idx, y_idx, width, height) do
+  @spec block(:wall | :empty | :floor, number(), number()) :: map()
+  defp block(type, x_idx, y_idx) do
     %{
-      type: :wall,
-      left: Helpers.coordinate(x_idx, width),
-      top: Helpers.coordinate(y_idx, height),
-      width: width,
-      height: height
+      type: type,
+      left: Helpers.coordinate(x_idx),
+      top: Helpers.coordinate(y_idx),
+      width: GameSettings.unit(),
+      height: GameSettings.unit()
     }
   end
 
-  @spec floor(number(), number(), number(), number()) :: map()
-  defp floor(x_idx, y_idx, width, height) do
-    %{
-      type: :floor,
-      left: Helpers.coordinate(x_idx, width),
-      top: Helpers.coordinate(y_idx, height),
-      width: width,
-      height: height
-    }
-  end
-
-  @spec empty(number(), number(), number(), number()) :: map()
-  defp empty(x_idx, y_idx, width, height) do
-    %{
-      type: :empty,
-      left: Helpers.coordinate(x_idx, width),
-      top: Helpers.coordinate(y_idx, height),
-      width: width,
-      height: height
-    }
-  end
-
-  @spec brick(String.t(), number(), number(), number(), number(), number()) :: map()
-  defp brick(color, brick_length, x_idx, y_idx, width, height) do
+  @spec brick(String.t(), number(), number(), number(), number()) :: map()
+  defp brick(color, brick_length, brick_height, x_idx, y_idx) do
     %{
       type: :brick,
-      color: get_color(color),
-      width: width * brick_length,
-      height: height,
+      left: Helpers.coordinate(x_idx),
+      top: Helpers.coordinate(y_idx),
+      width: Helpers.coordinate(brick_length),
+      height: Helpers.coordinate(brick_height),
       id: UUID.uuid4(),
       visible: true,
-      left: Helpers.coordinate(x_idx, width),
-      top: Helpers.coordinate(y_idx, height),
-      right: Helpers.coordinate(x_idx, width) + width * brick_length, # pre-computed for performance sake
-      bottom: Helpers.coordinate(y_idx, height) + height # pre-computed for performance sake
+      color: get_color(color)
     }
   end
 

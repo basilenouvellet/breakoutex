@@ -24,7 +24,7 @@
             style="transform: translate3d(<%= brick.left %>px, <%= brick.top %>px, 0px);
                     width: <%= brick.width %>px;
                     height: <%= brick.height %>px;
-                    background: <%= Map.fetch!(brick, :color) %>; "></div>
+                    background: <%= brick.color %>; "></div>
         <% end %>
     </div>
 </div>
