@@ -1,8 +1,8 @@
 .game-container {
     position: relative;
     margin-top: 4rem;
-    /* Subtract half of the board width: 26 columns * 20 units each / 2 = 260px */
-    left: calc(50% - 260px);
+    /* Subtract half of the board width: 35 columns * 35 pixels each / 2 */
+    left: calc(50% - 35 * 35px / 2);
 }
 
 .game-container .block {
