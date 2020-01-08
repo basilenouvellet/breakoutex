@@ -2,6 +2,33 @@
 <%# to benefit from GPU computation instead of CPU computation %>
 
 <div phx-keydown="keydown" phx-keyup="keyup" phx-target="window">
+    <%# Debug infos %>
+    <div style="color: #fff;
+                display: flex;
+                justify-content: space-evenly; ">
+        <div>
+            <h3>Ball Speed</h3>
+            <div>Vertical: <%= @ball.speed.vertical %></div>
+            <div>Horizontal: <%= @ball.speed.horizontal %></div>
+        </div>
+
+        <div>
+            <h3>Ball Position</h3>
+            <div>Top: <%= @ball.top %></div>
+            <div>Bottom: <%= @ball.bottom %></div>
+            <div>Left: <%= @ball.left %></div>
+            <div>Right: <%= @ball.right %></div>
+        </div>
+
+        <div>
+            <h3>Paddle Position</h3>
+            <div>Top: <%= @paddle.top %></div>
+            <div>Bottom: <%= @paddle.bottom %></div>
+            <div>Left: <%= @paddle.left %></div>
+            <div>Right: <%= @paddle.right %></div>
+        </div>
+    </div>
+
     <div class="game-container">
         <%# Paddle %>
         <div class="block paddle"
@@ -26,5 +53,12 @@
                     height: <%= brick.height %>px;
                     background: <%= brick.color %>; "></div>
         <% end %>
+
+        <%# Ball %>
+        <div class="block ball"
+            style="transform: translate3d(<%= @ball.left %>px, <%= @ball.top %>px, 0px);
+                    width: <%= @ball.width %>px;
+                    height: <%= @ball.height %>px; ">
+        </div>
     </div>
 </div>

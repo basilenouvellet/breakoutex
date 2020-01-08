@@ -6,8 +6,8 @@ defmodule BreakoutexWeb.Live.Paddle do
   @spec initial_state() :: map()
   def initial_state() do
     %{
-      width: GameSettings.paddle().length * GameSettings.unit(),
-      height: GameSettings.paddle().height * GameSettings.unit(),
+      width: Helpers.coordinate(GameSettings.paddle().length),
+      height: Helpers.coordinate(GameSettings.paddle().height),
       # Coordinates of the box surrounding the paddle
       left: Helpers.coordinate(GameSettings.paddle_initial_position().left),
       top: Helpers.coordinate(GameSettings.paddle_initial_position().top),

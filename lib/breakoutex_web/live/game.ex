@@ -8,7 +8,7 @@ defmodule BreakoutexWeb.Live.Game do
 
   alias Phoenix.LiveView.Socket
   alias BreakoutexWeb.GameView
-  alias BreakoutexWeb.Live.{Paddle, Blocks, GameSettings}
+  alias BreakoutexWeb.Live.{Paddle, Ball, Blocks, GameSettings}
 
   @left_keys ["ArrowLeft", "KeyA"]
   @right_keys ["ArrowRight", "KeyD"]
@@ -23,6 +23,7 @@ defmodule BreakoutexWeb.Live.Game do
       unit: GameSettings.unit(),
       tick: GameSettings.tick(),
       paddle: Paddle.initial_state(),
+      ball: Ball.initial_state(),
       blocks: Blocks.build_board(GameSettings.level())
     }
 
@@ -67,6 +68,7 @@ defmodule BreakoutexWeb.Live.Game do
   defp game_loop(socket) do
     socket
     |> Paddle.advance()
+    |> Ball.advance()
   end
 
   # Handle Keydown events

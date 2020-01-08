@@ -8,26 +8,7 @@ defmodule BreakoutexWeb.Live.GameSettings do
 
   @board %{
     cols: 35,
-    rows: 21
-  }
-
-  # Paddle characteristics expressed in basic units
-  @paddle %{
-    length: 5,
-    height: 1,
-    # distance the paddle can move between 2 ticks
-    speed: 8
-  }
-
-  @paddle_initial_position %{
-    left: (@board.cols - @paddle.length) / 2,
-    top: @board.rows - 3
-  }
-
-  # Expressed in multiple of basic units
-  @brick %{
-    length: 3,
-    height: 1
+    rows: 22
   }
 
   @level [
@@ -55,12 +36,50 @@ defmodule BreakoutexWeb.Live.GameSettings do
     ~w(D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D D)
   ]
 
+  # Paddle characteristics expressed in basic units
+  @paddle %{
+    length: 5,
+    height: 1,
+    # distance the paddle can move between 2 ticks
+    speed: 8
+  }
+
+  @paddle_initial_position %{
+    left: (@board.cols - @paddle.length) / 2,
+    top: @board.rows - 3
+  }
+
+  # Ball characteristics expressed in basic units
+  @ball %{
+    length: 1,
+    height: 1
+  }
+
+  @ball_initial_position %{
+    left: @paddle_initial_position.left,
+    top: @paddle_initial_position.top - 1
+  }
+
+  @ball_initial_speed %{
+    vertical: 5,
+    horizontal: 3
+  }
+
+  # Expressed in multiple of basic units
+  @brick %{
+    length: 3,
+    height: 1
+  }
+
   # Getters
   def tick(), do: @tick
   def unit(), do: @unit
   def board(), do: @board
   def paddle(), do: @paddle
   def paddle_initial_position(), do: @paddle_initial_position
+  def ball(), do: @ball
+  def ball_initial_position(), do: @ball_initial_position
+  def ball_initial_speed(), do: @ball_initial_speed
   def brick(), do: @brick
   def level(), do: @level
 end
