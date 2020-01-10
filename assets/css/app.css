@@ -1,14 +1,59 @@
 /* This file is for your main application css. */
 
-@import "./phoenix.css";
 @import "../../deps/phoenix_live_view/assets/css/live_view.css";
+@import "./phoenix.css";
 @import "./game.css";
 
 html {
+  overflow-x: hidden;
   background: #292a2d;
   color: #a9a9b3;
 }
 
 body {
   margin: 0;
+}
+
+a {
+  text-decoration: underline;
+  line-height: 1;
+  color: #a9a9b3;
+  font-weight: 700;
+}
+
+a:hover {
+  color: #a9a9b3;
+}
+
+header {
+  background: #252627;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  font-size: 1.5rem;
+  border: none;
+}
+
+.header__inner {
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.header__inner a {
+  text-decoration: none;
+  color: #a9a9b3;
+}
+
+.header__right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.container {
+  padding: 0;
 }
